@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SQ</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag rel="stylesheet", href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" %>
+  <%= stylesheet_link_tag rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body>
+
+<header class="navbar navbar-fixed-top navbar-default">
+  <div class="wrapper clearfix">
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://localhost:3000/">SQ
+        </a>
+      </div>
+
+      <div class="collapse nav navbar-collapse bs-navbar-collapse navbar-right">
+        <% if user_signed_in? %>
+          <ul class="nav navbar-nav navbar-default">
+            <li class="round-image-50"><%= image_tag(current_user.image.url(:thumb)) %></li>
+            <li><%= link_to current_user.name, edit_user_registration_path %></li>
+            <li><%= link_to "Log out", destroy_user_session_path, method: "delete", class: "fa fa-sign-out fa-4" %></li>
+
+        <% else %>
+          <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Sign in", new_user_session_path %></li>
+          <li><%= link_to "Sign Up", new_user_registration_path, class: "button" %></li>
+          </ul>
+        <% end %>
+      </div>
+  </div>
+</header>
+
+<div class="container">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+	<%= yield %>
+</div>
+
+</body>
+</html>
+
+
+
