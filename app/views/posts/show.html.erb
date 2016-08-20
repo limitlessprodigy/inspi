@@ -8,7 +8,6 @@
         about
         <%= time_ago_in_words(@post.created_at) %>
     </p>
-
     <div class="clearfix">
         <div class="post_image_description">
             <%= image_tag @post.image.url(:medium) %>
@@ -16,10 +15,8 @@
                 <%= simple_format(@post.description) %>
             </div>
         </div>
-
         <div class="post_data">
-            <label class="round-image-33"><%= image_tag(@post.user.image.url(:thumb)) %></label>
-            <%= link_to "Profile", profile_path(@post.user.name), class: "button" %>
+            <%= link_to "Visit Link", @post.link, class: "button" %>
             <%= link_to like_post_path(@post), method: :get, class: "data" do %>
             <i class="fa fa-thumbs-o-up"></i>
             <%= pluralize(@post.get_upvotes.size, "Like") %>
@@ -28,35 +25,28 @@
             <i class="fa fa-thumbs-o-down"></i>
             <%= pluralize(@post.get_downvotes.size, "Dislike") %>
             <% end %>
-
             <p class="data">
                 <i class="fa fa-comments-o"></i>
                 <%= pluralize(@post.comments.count, "Comment") %>
             </p>
-
             <% if @post.user == current_user %>
             <%= link_to "Edit", edit_post_path(@post), class: "data" %>
             <%= link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class: "data" %>
             <% end %>
         </div>
-
         <div id="random_post">
-            <h3>Random</h3>
+            <h3>Random Inspiration</h3>
             <div class="post">
-                <div class="post_image">
-                    <% if @random_post %>
-                    <%= link_to (image_tag @random_post.image.url(:medium)), post_path(@random_post) %>
-
-                </div>
-
+                <div class="post_image"></div>
+                <% if @random_post %>
+                <%= link_to (image_tag @random_post.image.url(:medium)), post_path(@random_post) %>
+                <% end %>
                 <div class="post_content">
                     <div class="title">
                         <h2>
                             <%= link_to @random_post.title, post_path(@random_post) %>
-
                         </h2>
                     </div>
-
                     <div class="data clearfix">
                         <p class="username">
                             Shared by
@@ -70,7 +60,6 @@
                             <span>
                                 <i class="fa fa-thumbs-o-up"></i>
                                 <%= @random_post.get_likes.size %>
-                                <% end %>
                             </span>
                         </p>
                     </div>
